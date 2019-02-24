@@ -1,0 +1,4 @@
+{
+  "jwtPrivateKey": "shadow_jwtPrivateKey",
+  "db":"shadow_db"
+}

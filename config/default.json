@@ -1,0 +1,6 @@
+{
+  "jwtPrivateKey": "unsecureKey",
+  "db": "mongodb://shadow:123456a@ds349175.mlab.com:49175/shadow",
+  "port": "3900",
+  "requiresAuth": true
+}

@@ -1,0 +1,40 @@
+{
+  "name": "shadow",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "seed": "node seed.js",
+    "test": "jest --watchAll --verbose"
+  },
+  "engines": {
+    "node": "v8.11.4"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "compression": "^1.7.3",
+    "config": "^1.31.0",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "express-async-errors": "^2.1.2",
+    "fawn": "^2.1.5",
+    "helmet": "^3.15.1",
+    "heroku-cli": "^7.0.9",
+    "joi": "^13.7.0",
+    "joi-objectid": "^2.0.0",
+    "jsonwebtoken": "^8.5.0",
+    "lodash": "^4.17.11",
+    "moment": "^2.24.0",
+    "mongoose": "^5.4.14",
+    "winston": "^2.4.4",
+    "winston-mongodb": "^3.0.2"
+  },
+  "devDependencies": {
+    "jest": "^22.2.2",
+    "supertest": "^3.4.2"
+  }
+}
