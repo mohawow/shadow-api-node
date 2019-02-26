@@ -24,13 +24,16 @@ router.post("/", [auth], async (req, res) => {
 
   const trip = new Trip({
     title: req.body.title,
+    date: moment().toJSON(),
     shift: {
       _id: shift._id,
       name: shift.name
     },
     numberOfPackages: req.body.numberOfPackages,
     numberOfStops: req.body.numberOfStops,
-    publishDate: moment().toJSON()
+    initialPay: req.body.initialPay,
+    finalPay: req.body.finalPay,
+    tips: req.body.tips,
   });
   await trip.save();
 
@@ -48,12 +51,16 @@ router.put("/:id", [auth], async (req, res) => {
     req.params.id,
     {
       title: req.body.title,
+      date: moment().toJSON(),
       shift: {
         _id: shift._id,
         name: shift.name
       },
       numberOfPackages: req.body.numberOfPackages,
-      numberOfStops: req.body.numberOfStops
+      numberOfStops: req.body.numberOfStops,
+      initialPay: req.body.initialPay,
+      finalPay: req.body.finalPay,
+      tips: req.body.tips
     },
     { new: true }
   );
