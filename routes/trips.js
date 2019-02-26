@@ -4,7 +4,6 @@ const auth = require("../middleware/auth");
 const admin = require("../middleware/admin");
 const validateObjectId = require("../middleware/validateObjectId");
 const moment = require("moment");
-const mongoose = require("mongoose");
 const express = require("express");
 const router = express.Router();
 
@@ -24,7 +23,7 @@ router.post("/", [auth], async (req, res) => {
 
   const trip = new Trip({
     title: req.body.title,
-    date: moment().toJSON(),
+    date: req.body.date,
     shift: {
       _id: shift._id,
       name: shift.name

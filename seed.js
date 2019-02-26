@@ -2,12 +2,13 @@ const { Shift } = require("./models/shift");
 const { Trip } = require("./models/trip");
 const mongoose = require("mongoose");
 const config = require("config");
+const moment = require("moment");
 
 const data = [
   {
     name: "Morning",
     trips: [
-      { block: "8:30AM - 9:30AM", date:moment().toJSON(), numberOfStops: 2, initialPay: 35,finalPay: 40, tips: 5 },
+      { block: "8:30AM - 9:30AM", date:moment().toJSON(),numberOfStops: 2, numberOfPackages:3, initialPay: 35,finalPay: 40, tips: 5 },
       { block: "8:30AM - 9:30AM", date:moment().toJSON(),numberOfPackages: 10, numberOfStops: 2,  initialPay: 35,finalPay: 40, tips: 5  },
       { block: "8:30AM - 9:30AM", date:moment().toJSON(),numberOfPackages: 15, numberOfStops: 2,  initialPay: 35,finalPay: 40, tips: 5  }
     ]

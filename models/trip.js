@@ -11,7 +11,7 @@ const Trip = mongoose.model('Trips', new mongoose.Schema({
     maxlength: 255
   },
   date: {
-    type: moment().toJSON(),
+    type: String,
     required: false,
   },
   shift: { 
@@ -30,7 +30,7 @@ const Trip = mongoose.model('Trips', new mongoose.Schema({
     min: 0,
     max: 255
   },
-  intialPay: { 
+  initialPay: { 
     type: Number, 
     required: true,
     min: 0,
@@ -44,7 +44,7 @@ const Trip = mongoose.model('Trips', new mongoose.Schema({
   },
   tips: { 
     type: Number, 
-    required: flase,
+    required: false,
     min: 0,
     max: 1000
   }
@@ -53,7 +53,7 @@ const Trip = mongoose.model('Trips', new mongoose.Schema({
 function validateTrip(trip) {
   const schema = {
     block: Joi.string().min(5).max(50).required(),
-    date:moment().toJSON(),
+    date:Joi.string(),
     shiftId: Joi.objectId().required(),
     numberOfPackages: Joi.number().min(0).required(),
     numberOfStops: Joi.number().min(0).required(),
@@ -61,7 +61,6 @@ function validateTrip(trip) {
     finalPay: Joi.number().min(0),
     tips: Joi.number().min(0)
   };
-
   return Joi.validate(trip, schema);
 }
 
