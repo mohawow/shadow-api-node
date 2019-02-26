@@ -203,9 +203,7 @@ describe('/api/shifts', () => {
         .send();
     }
 
-    beforeEach(async () => {
-      // Before each test we need to create a shift and 
-      // put it in the database.      
+    beforeEach(async () => {     
       shift = new Shift({ name: 'shift1' });
       await shift.save();
       

@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
   res.send(trips);
 });
 
-router.post("/", [auth], async (req, res) => {
+router.post("/", async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
@@ -22,7 +22,7 @@ router.post("/", [auth], async (req, res) => {
   if (!shift) return res.status(400).send("Invalid shift.");
 
   const trip = new Trip({
-    title: req.body.title,
+    block: req.body.block,
     date: req.body.date,
     shift: {
       _id: shift._id,
@@ -40,6 +40,8 @@ router.post("/", [auth], async (req, res) => {
 });
 
 router.put("/:id", [auth], async (req, res) => {
+  console.log(req.body);
+  console.log("testing");
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
@@ -49,7 +51,7 @@ router.put("/:id", [auth], async (req, res) => {
   const trip = await Trip.findByIdAndUpdate(
     req.params.id,
     {
-      title: req.body.title,
+      block: req.body.block,
       date: moment().toJSON(),
       shift: {
         _id: shift._id,

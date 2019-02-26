@@ -6,8 +6,7 @@ const Trip = mongoose.model('Trips', new mongoose.Schema({
   block: {
     type: String,
     required: true,
-    trim: true, 
-    minlength: 5,
+    minlength: 0,
     maxlength: 255
   },
   date: {
@@ -34,19 +33,19 @@ const Trip = mongoose.model('Trips', new mongoose.Schema({
     type: Number, 
     required: true,
     min: 0,
-    max: 1000
+    max: 255
   },
   finalPay: { 
     type: Number, 
     required: false,
     min: 0,
-    max: 1000
+    max: 255
   },
   tips: { 
     type: Number, 
     required: false,
     min: 0,
-    max: 1000
+    max: 255
   }
 }));
 
@@ -54,10 +53,10 @@ function validateTrip(trip) {
   const schema = {
     block: Joi.string().min(5).max(50).required(),
     date:Joi.string(),
-    shiftId: Joi.objectId().required(),
+    shiftId: Joi.objectId(),
     numberOfPackages: Joi.number().min(0).required(),
     numberOfStops: Joi.number().min(0).required(),
-    intialPay: Joi.number().min(0).required(),
+    initialPay: Joi.number().min(0).required(),
     finalPay: Joi.number().min(0),
     tips: Joi.number().min(0)
   };
