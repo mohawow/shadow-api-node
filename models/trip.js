@@ -39,7 +39,8 @@ const Trip = mongoose.model('Trips', new mongoose.Schema({
     type: Number, 
     required: false,
     min: 0,
-    max: 255
+    max: 255,
+    default:0
   },
   tips: { 
     type: Number, 
@@ -57,11 +58,10 @@ function validateTrip(trip) {
     numberOfPackages: Joi.number().min(0).required(),
     numberOfStops: Joi.number().min(0).required(),
     initialPay: Joi.number().min(0).required(),
-    finalPay: Joi.number().min(0),
+    finalPay: Joi.number().min(0).optional().allow(''),
     tips: Joi.number().min(0)
   };
   return Joi.validate(trip, schema);
 }
-
 exports.Trip = Trip; 
 exports.validate = validateTrip;
