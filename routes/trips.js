@@ -75,7 +75,7 @@ router.put("/trip/:id", [auth], async (req, res) => {
   res.send(trip);
 });
 
-router.delete("/:id", [auth, admin], async (req, res) => {
+router.delete("/trip/:id", [auth, admin], async (req, res) => {
   const trip = await Trip.findByIdAndRemove(req.params.id);
 
   if (!trip)
