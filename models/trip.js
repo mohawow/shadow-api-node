@@ -47,6 +47,10 @@ const Trip = mongoose.model('Trips', new mongoose.Schema({
     required: false,
     min: 0,
     max: 255
+  },
+  userId: {
+    type: String,
+    required: true
   }
 }));
 
@@ -59,7 +63,8 @@ function validateTrip(trip) {
     numberOfStops: Joi.number().min(0).required(),
     initialPay: Joi.number().min(0).required(),
     finalPay: Joi.number().min(0).optional().allow(''),
-    tips: Joi.number().min(0)
+    tips: Joi.number().min(0),
+    userId: Joi.string()
   };
   return Joi.validate(trip, schema);
 }

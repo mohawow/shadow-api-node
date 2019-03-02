@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "nodemon index.js",
     "seed": "node seed.js",
     "test": "jest --watchAll --verbose"
   },
@@ -31,6 +31,8 @@
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
     "mongoose": "^5.4.14",
+    "morgan": "^1.9.1",
+    "nodemon": "^1.18.10",
     "winston": "^2.4.4",
     "winston-mongodb": "^3.0.2"
   },

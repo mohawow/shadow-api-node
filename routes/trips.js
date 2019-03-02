@@ -7,8 +7,10 @@ const moment = require("moment");
 const express = require("express");
 const router = express.Router();
 
-router.get("/", async (req, res) => {
-  const trips = await Trip.find()
+
+// Get By Id 
+router.get("/:userId", async (req, res) => {
+  const trips = await Trip.find({ userId: req.params.userId})
     .select("-__v")
     .sort("name");
   res.send(trips);
@@ -33,14 +35,15 @@ router.post("/", async (req, res) => {
     initialPay: req.body.initialPay,
     finalPay: req.body.finalPay,
     tips: req.body.tips,
+    userId: req.body.userId
   });
   await trip.save();
 
   res.send(trip);
 });
 
-router.put("/:id", [auth], async (req, res) => {
-
+router.put("/trip/:id", [auth], async (req, res) => {
+  console.log('route hit', req.body);
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
@@ -51,7 +54,7 @@ router.put("/:id", [auth], async (req, res) => {
     req.params.id,
     {
       block: req.body.block,
-      date: moment().toJSON(),
+      date: req.body.date,
       shift: {
         _id: shift._id,
         name: shift.name
@@ -60,7 +63,8 @@ router.put("/:id", [auth], async (req, res) => {
       numberOfStops: req.body.numberOfStops,
       initialPay: req.body.initialPay,
       finalPay: req.body.finalPay,
-      tips: req.body.tips
+      tips: req.body.tips,
+      userId: req.body.userId
     },
     { new: true }
   );
@@ -80,7 +84,7 @@ router.delete("/:id", [auth, admin], async (req, res) => {
   res.send(trip);
 });
 
-router.get("/:id", validateObjectId, async (req, res) => {
+router.get("/trip/:id", validateObjectId, async (req, res) => {
   const trip = await Trip.findById(req.params.id).select("-__v");
 
   if (!trip)
