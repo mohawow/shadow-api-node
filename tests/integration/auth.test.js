@@ -13,9 +13,9 @@ describe('auth middleware', () => {
 
   const exec = () => {
     return request(server)
-      .post('/api/genres')
+      .post('/api/shifts')
       .set('x-auth-token', token)
-      .send({ name: 'genre1' });
+      .send({ name: 'shift1' });
   }
 
   beforeEach(() => {

@@ -8,7 +8,7 @@ const express = require("express");
 const router = express.Router();
 
 
-// Get By Id 
+
 router.get("/:userId", async (req, res) => {
   const trips = await Trip.find({ userId: req.params.userId})
     .select("-__v")

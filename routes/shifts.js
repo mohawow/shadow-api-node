@@ -10,6 +10,7 @@ router.get("/", async (req, res) => {
   const shifts = await Shift.find()
     .select("-__v")
     .sort("name");
+    console.log('what am i sneding', shifts);
   res.send(shifts);
 });
 
