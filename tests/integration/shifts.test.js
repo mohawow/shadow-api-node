@@ -12,28 +12,29 @@ describe('/api/shifts', () => {
     await Shift.remove({});
   });
 
-  describe('GET /', () => {
-    it('should return all shifts', async () => {
-      const shifts = [
-        { name: 'shift1' },
-        { name: 'shift2' },
-      ];
+  // describe('GET /', () => {
+  //   it('should return all shifts', async () => {
+  //     const shifts = [
+  //       { name: 'shift1' },
+  //       { name: 'shift2' },
+  //     ];
       
-      await Shift.collection.insertMany(shifts);
+  //     await Shift.collection.insertMany(shifts);
 
-      const res = await request(server).get('/api/shifts');
-      console.log('BODY: -------------------',res.body)
-      expect(res.status).toBe(200);
-      expect(res.body.length).toBe(2);
-      expect(res.body.some(g => g.name === 'shift1')).toBeTruthy();
-      expect(res.body.some(g => g.name === 'shift2')).toBeTruthy();
-    });
-  });
+  //     const res = await request(server).get('/api/shifts');
+  //     console.log('BODY: -------------------',res.body)
+  //     expect(res.status).toBe(200);
+  //     expect(res.body.length).toBe(2);
+  //     expect(res.body.some(g => g.name === 'shift1')).toBeTruthy();
+  //     expect(res.body.some(g => g.name === 'shift2')).toBeTruthy();
+  //   });
+  // });
 
   describe('GET /:id', () => {
     it('should return a shift if valid id is passed', async () => {
-      const shift = new Shift({ name: 'shift1' });
+      const shift = new Shift({ name: 'shift3' });
       await shift.save();
+      console.log('SHIFT???', shift);
 
       const res = await request(server).get('/api/shifts/' + shift._id);
 

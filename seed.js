@@ -8,50 +8,58 @@ const data = [
   {
     name: "Morning",
     trips: [
-      { block: "8:30AM - 9:30AM", date:moment().toJSON(),numberOfStops: 2, numberOfPackages:3, initialPay: 35,finalPay: 40, tips: 5 },
-      { block: "8:30AM - 9:30AM", date:moment().toJSON(),numberOfPackages: 10, numberOfStops: 2,  initialPay: 35,finalPay: 40, tips: 5  },
-      { block: "8:30AM - 9:30AM", date:moment().toJSON(),numberOfPackages: 15, numberOfStops: 2,  initialPay: 35,finalPay: 40, tips: 5  }
+      { block: "8:30AM - 9:30AM", date: moment().toJSON(), numberOfStops: 2, numberOfPackages: 3, initialPay: 35, finalPay: 40, tips: 5, userId: "5c836d057c72871f70e81ca5" },
+      { block: "8:30AM - 9:30AM", date: moment().toJSON(), numberOfPackages: 10, numberOfStops: 2, initialPay: 35, finalPay: 40, tips: 5, userId: "5c836d057c72871f70e81ca5" },
+      { block: "8:30AM - 9:30AM", date: moment().toJSON(), numberOfPackages: 15, numberOfStops: 2, initialPay: 35, finalPay: 40, tips: 5, userId: "5c836d057c72871f70e81ca5" }
     ]
   },
   {
     name: "Afternoon",
     trips: [
-      { block: "12:30PM - 01:30PM", date:moment().toJSON(), numberOfPackages: 5, numberOfStops: 2, initialPay: 25,finalPay: 30, tips: 10  },
-      { block: "12:30PM - 01:30PM", date:moment().toJSON(), numberOfPackages: 10, numberOfStops: 2, initialPay: 25,finalPay: 30, tips: 10 },
-      { block: "12:30PM - 01:30PM", date:moment().toJSON(), numberOfPackages: 15, numberOfStops: 2, initialPay: 25,finalPay: 30, tips: 10  }
+      { block: "12:30PM - 01:30PM", date: moment().toJSON(), numberOfPackages: 5, numberOfStops: 2, initialPay: 25, finalPay: 30, tips: 10, userId: "5c836d057c72871f70e81ca5" },
+      { block: "12:30PM - 01:30PM", date: moment().toJSON(), numberOfPackages: 10, numberOfStops: 2, initialPay: 25, finalPay: 30, tips: 10, userId: "5c836d057c72871f70e81ca5"},
+      { block: "12:30PM - 01:30PM", date: moment().toJSON(), numberOfPackages: 15, numberOfStops: 2, initialPay: 25, finalPay: 30, tips: 10, userId: "5c836d057c72871f70e81ca5" }
     ]
   },
   {
     name: "Evening",
     trips: [
-      { block: "04:30PM - 06:30PM", date:moment().toJSON(), numberOfPackages: 5, numberOfStops: 2, initialPay: 25,finalPay: 30, tips: 10  },
-      { block: "04:30PM - 06:30PM", date:moment().toJSON(), numberOfPackages: 10, numberOfStops: 2, initialPay: 25,finalPay: 30, tips: 10  },
-      { block: "04:30PM - 06:30PM", date:moment().toJSON(), numberOfPackages: 15, numberOfStops: 2, initialPay: 25,finalPay: 30, tips: 10  }
+      { block: "04:30PM - 06:30PM", date:moment().toJSON(), numberOfPackages: 5, numberOfStops: 2, initialPay: 25,finalPay: 30, tips: 10, userId: "5c836d057c72871f70e81ca5"  },
+      { block: "04:30PM - 06:30PM", date: moment().toJSON(), numberOfPackages: 10, numberOfStops: 2, initialPay: 25, finalPay: 30, tips: 10, userId: "5c836d057c72871f70e81ca5" },
+      { block: "04:30PM - 06:30PM", date: moment().toJSON(), numberOfPackages: 15, numberOfStops: 2, initialPay: 25, finalPay: 30, tips: 10, userId: "5c836d057c72871f70e81ca5"  }
     ]
   },
   {
     name: "Night",
     trips: [
-      { block: "07:30PM - 08:30PM", date:moment().toJSON(), numberOfPackages: 5, numberOfStops: 2, initialPay: 45,finalPay: 50, tips: 5  },
-      { block: "07:30PM - 08:30PM", date:moment().toJSON(), numberOfPackages: 10, numberOfStops: 2, initialPay: 45,finalPay: 50, tips: 5  },
-      { block: "07:30PM - 08:30PM", date:moment().toJSON(), numberOfPackages: 15, numberOfStops: 2, initialPay: 45,finalPay: 50, tips: 5  }
+      { block: "07:30PM - 08:30PM", date: moment().toJSON(), numberOfPackages: 5, numberOfStops: 2, initialPay: 45, finalPay: 50, tips: 5, userId: "5c836d057c72871f70e81ca5"},
+      { block: "07:30PM - 08:30PM", date: moment().toJSON(), numberOfPackages: 10, numberOfStops: 2, initialPay: 45, finalPay: 50, tips: 5, userId: "5c836d057c72871f70e81ca5" },
+      { block: "07:30PM - 08:30PM", date: moment().toJSON(), numberOfPackages: 15, numberOfStops: 2, initialPay: 45, finalPay: 50, tips: 5, userId: "5c836d057c72871f70e81ca5" }
     ]
   }
 ];
 
 async function seed() {
-  await mongoose.connect(config.get("db"));
+  try {
+    await mongoose.connect(config.get("db"));
+    await Trip.deleteMany({});
+    await Shift.deleteMany({});
+  } catch (err) {
+    console.error('err', err);
+  }
 
-  await Trip.deleteMany({});
-  await Shift.deleteMany({});
 
   for (let shift of data) {
-    const { _id: shiftId } = await new Shift({ name: shift.name }).save();
-    const trips = shift.trips.map(trip => ({
-      ...trip,
-      shift: { _id: shiftId, name: shift.name }
-    }));
-    await Trip.insertMany(trips);
+    try {
+      const { _id: shiftId } = await new Shift({ name: shift.name }).save();
+      const trips = shift.trips.map(trip => ({
+        ...trip,
+        shift: { _id: shiftId, name: shift.name }
+      }));
+      await Trip.insertMany(trips);
+    } catch (err) {
+      console.error('err', err);
+    }
   }
 
   mongoose.disconnect();

@@ -12,9 +12,7 @@ require("./startup/validation")();
 require('./startup/prod')(app);
 
 const port = process.env.PORT || config.get("port");
-const server = app.listen(port, () => {
-  console.log('Listening in on port #');
-}
-);
+const server = app.listen(port);
+
 
 module.exports = server;

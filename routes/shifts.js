@@ -10,7 +10,6 @@ router.get("/", async (req, res) => {
   const shifts = await Shift.find()
     .select("-__v")
     .sort("name");
-    console.log('what am i sneding', shifts);
   res.send(shifts);
 });
 
@@ -53,7 +52,6 @@ router.delete("/:id", [auth, admin, validateObjectId], async (req, res) => {
 
 router.get("/:id", validateObjectId, async (req, res) => {
   const shift = await Shift.findById(req.params.id).select("-__v");
-
   if (!shift)
     return res.status(404).send("The shift with the given ID was not found.");
 
