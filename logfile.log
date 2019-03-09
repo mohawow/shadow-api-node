@@ -91,3 +91,4 @@
 {"level":"info","message":"Connected to mongodb://localhost/shadow_tests...","timestamp":"2019-03-09T07:54:13.667Z"}
 {"level":"info","message":"Connected to mongodb://localhost/shadow_tests...","timestamp":"2019-03-09T07:54:17.548Z"}
 {"level":"info","message":"Connected to mongodb://localhost/shadow_tests...","timestamp":"2019-03-09T07:54:17.876Z"}
+{"level":"info","message":"Connected to mongodb://shadowuser:a123456@ds349455.mlab.com:49455/shadow...","timestamp":"2019-03-09T08:10:20.191Z"}
